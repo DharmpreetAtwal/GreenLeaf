@@ -3,7 +3,28 @@
 <head>
     <meta charset="UTF-8">
     <title>TICKETS</title>
-    <p>TICKETS</p>
+    <p>{{ user.username }}'s Tickets</p>
+    <a href="http://localhost:8000/admin_dash/"> BACK</a>
+
+<table style="border: 1px solid; width: 100%;">
+    <tr>
+        <th>ID</th>
+        <th>STATUS</th>
+        <th>PRIORITY</th>
+        <th> CREATED </th>
+        <th> TICKET TEXT</th>
+    </tr>
+        {% for ticket in tickets %}
+            <tr>
+                <td>{{ ticket.id }} </td>
+                <td>{{ ticket.ticket_status }}</td>
+                <td>{{ ticket.priority }}</td>
+                <td>{{ ticket.created_at }} </td>
+                <td>{{ ticket.ticket_text }}</td>
+            </tr>
+        {% endfor %}
+</table>
+
 </head>
 <body>
 
