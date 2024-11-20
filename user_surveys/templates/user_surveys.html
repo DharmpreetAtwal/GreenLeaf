@@ -2,11 +2,23 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
-    
-    <p> USER SURVEYS </p>
+    <title>User Surveys</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
 </head>
 <body>
-
+    <header class="header-back">
+        <a href="/admin_dash">BACK</a>
+        <h1>User Surveys</h1>
+    </header>
+    <main>
+        <ul>
+            {% for survey in surveys %}
+            <li>
+                <strong>Survey ID:</strong> {{ survey.id }}
+            </li>
+            {% endfor %}
+        </ul>
+    </main>
 </body>
 </html>

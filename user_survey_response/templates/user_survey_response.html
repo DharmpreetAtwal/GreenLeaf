@@ -2,10 +2,46 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
-    <p> USER SURVEY RESPONSE </p>
+    <title>User Survey Responses</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
 </head>
 <body>
-
+    <header class="header-back">
+        <a href="/admin_dash">BACK</a>
+        <h1>Survey Responses for {{ user.username }}</h1>
+    </header>
+    <main>
+        {% for response in responses %}
+        <div class="survey-response">
+            <div class="survey-header">
+                <strong>Survey:</strong> {{ response.survey.id }} <br>
+                <strong>Submitted:</strong> {{ response.submitted_at }}
+            </div>
+            <div class="question-section">
+                {% for question_response in response.question_responses.all %}
+                <div class="question">
+                    <strong>Question:</strong> {{ question_response.question.text }} <br>
+                    <strong>Response:</strong> {{ question_response.response_text }}
+                </div>
+                {% endfor %}
+                {% for mc_response in response.multiple_choice_responses.all %}
+                <div class="question">
+                    <strong>Multiple Choice Question:</strong> {{ mc_response.option.mult_question.question.text }} <br>
+                    <strong>Selected Option:</strong> {{ mc_response.option.text }}
+                </div>
+                {% endfor %}
+                {% for textual_response in response.textual_responses.all %}
+                <div class="question">
+                    <strong>Textual Question:</strong> {{ textual_response.text_question.question.text }} <br>
+                    <strong>Response:</strong> {{ textual_response.response_text }}
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        {% empty %}
+        <p>No survey responses found for this user.</p>
+        {% endfor %}
+    </main>
 </body>
 </html>
