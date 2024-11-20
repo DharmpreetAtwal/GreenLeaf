@@ -16,8 +16,10 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import include, path
+from django.shortcuts import redirect
 
 urlpatterns = [
+    path('', lambda request: redirect('admin_dash/', permanent=False)),
     path('admin_dash/', include('admin_dash.urls')),
     path('user_survey_response/', include('user_survey_response.urls')),
     path('user_surveys/', include('user_surveys.urls')),
