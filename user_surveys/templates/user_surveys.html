@@ -12,13 +12,32 @@
         <h1>User Surveys</h1>
     </header>
     <main>
-        <ul>
-            {% for survey in surveys %}
-            <li>
-                <strong>Survey ID:</strong> {{ survey.id }}
-            </li>
-            {% endfor %}
-        </ul>
+        {% for survey in surveys %}
+        <div class="survey">
+            <h2>Survey ID: {{ survey.id }}</h2>
+            <div class="questions">
+                <h3>Questions:</h3>
+                <ul>
+                {% for question in survey.question_set.all %}
+                    <li>
+                        <p><strong>Question:</strong> {{ question.text }}</p>
+                        {% if question.multiplechoicequestion %}
+                            <p>Type: Multiple Choice</p>
+                            <ul>
+                            {% for option in question.multiplechoicequestion.multiplechoiceoption_set.all %}
+                                <li>{{ option.text }}</li>
+                            {% endfor %}
+                            </ul>
+                        {% endif %}
+                        {% if question.textualquestion %}
+                            <p>Type: Text Response (Limit: {{ question.textualquestion.char_limit }} characters)</p>
+                        {% endif %}
+                    </li>
+                {% endfor %}
+                </ul>
+            </div>
+        </div>
+        {% endfor %}
     </main>
 </body>
 </html>
